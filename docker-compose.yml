@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  node:
+    build: ./
+    ports:
+      - "6802:6802"
+    container_name: zzz-node 
+    depends_on:
+      - db
+    networks:
+      - development
+    environment:
+      - PORT=6802
+      - DATABASE_HOST=db
+      - DATABASE_PASSWORD=1q2w3e4r
+      - EGG_SERVER_ENV=local
+      - NODE_ENV=development
+  db:
+    build: ./db
+    container_name: zzz-db
+    networks:
+      - development
+    environment:
+      - MYSQL_ROOT_PASSWORD=1q2w3e4r
+      - MYSQL_DATABASE=crownx
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1q2w3e4r
+
+networks:
+  development:
+    external: true
